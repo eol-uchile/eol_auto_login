@@ -1,0 +1,21 @@
+name: Python application
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Create coverage config file
+      run: |
+        echo -e "[run] \nomit = eol_auto_login/migrations/*" > .coveragerc
+    - name: Run Tests
+      run: |
+        cd .github/
+        docker-compose run lms /openedx/requirements/eol_auto_login/.github/test.sh
+    - name: Push changes
+      run: |
+        ./.github/commit.sh ${{ secrets.GITHUB_TOKEN }}
