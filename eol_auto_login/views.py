@@ -38,7 +38,7 @@ class EolAutoLoginView(View):
             logger.error("EolAutoLoginView - No token")
             raise Http404()
         try:
-            decode_token = base64.b64decode(token).decode('utf-8')
+            decode_token = base64.b64decode(token, validate=True).decode('utf-8')
         except Exception:
             logger.error("EolAutoLoginView - Wrong token {}".format(token))
             raise Http404()

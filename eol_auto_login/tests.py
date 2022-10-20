@@ -83,6 +83,10 @@ class TestAutoLogin(ModuleStoreTestCase):
         token = base64.b64encode('{}/{}/{}'.format(self.auto_login.user.id, self.auto_login.user.username, "aadas45d4a5ds45asd64f56sad").encode("utf-8")).decode("utf-8")
         result = self.client.get("{}?token={}".format(reverse('eol_auto_login:login'), token))
         self.assertEqual(result.status_code, 404)
+        #wrong uuid
+        token = base64.b64encode('{}/{}/{}'.format(self.auto_login.user.id, self.auto_login.user.username, self.auto_login.uuid+'asdasd').encode("utf-8")).decode("utf-8")
+        result = self.client.get("{}?token={}".format(reverse('eol_auto_login:login'), token))
+        self.assertEqual(result.status_code, 404)
     
     def test_create_auto_login(self):
         """
