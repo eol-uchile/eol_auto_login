@@ -11,6 +11,10 @@
 
     python manage.py lms --settings=prod.production create_auto_login **username**
 
+# Redirect
+
+    Add &redirect= in the auto login url to redirect to url
+
 ## TESTS
 **Prepare tests:**
 

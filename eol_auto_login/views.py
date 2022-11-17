@@ -34,6 +34,7 @@ class EolAutoLoginView(View):
     def get(self, request):
         logout(request)
         token = request.GET.get('token', '')
+        redirect_to = request.GET.get('redirect', '/')
         if token == '':
             logger.error("EolAutoLoginView - No token")
             raise Http404()
@@ -49,7 +50,7 @@ class EolAutoLoginView(View):
                 User.objects.get(username=payload[1]),
                 backend="django.contrib.auth.backends.AllowAllUsersModelBackend",
             )
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(redirect_to)
         else:
             raise Http404()
 
